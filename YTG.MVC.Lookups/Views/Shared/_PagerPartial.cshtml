@@ -1,0 +1,64 @@
+﻿@using YTG.MVC.Lookups.Models
+
+@model ISearchModel
+<!-- Pager -->
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (Model.CurrentPage > 1)
+        {
+            <li class="page-item"><a class="page-link" href="#" onclick="GetPaging(1)">First</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="GetPaging(@Model.CurrentPage - 1)">Previous</a></li>
+        }
+
+        @for (var displayPage = Model.StartPage; displayPage <= Model.EndPage; displayPage++)
+        {
+            <li class="@(displayPage == Model.CurrentPage ? "active" : "") page-item"><a class="page-link" href="#" onclick="GetPaging(@displayPage)">@displayPage</a></li>
+        }
+
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <li class="page-item"><a class="page-link" href="#" onclick="GetPaging(@Model.CurrentPage + 1)">Next</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="GetPaging(@Model.TotalPages)">Last</a></li>
+        }
+    </ul>
+</nav>
+<!-- /Pager -->
+
+<script type="text/javascript">
+
+    function GetPaging(ToPage) {
+
+        var _url = "/@Model.controllerName/@Model.actionName";
+
+        // Set the global values for sorting post back
+        var searchModel = {};
+        searchModel.SortColumn = '@Model.SortColumn';
+        searchModel.PrevSortColumn = ''; // Leave blank so sorting doesn't kick;
+        searchModel.CurrentPage = ToPage;
+        searchModel.PageSize = @Model.PageSize;
+        searchModel.SearchTerm = '@Model.SearchTerm';
+        searchModel.SearchFilter = '@Model.SearchFilter';
+        searchModel.SortDescending = '@Model.SortDescending';
+        searchModel.ActiveOnly = '@Model.ActiveOnly';
+        searchModel.RefId = @Model.RefId;
+        searchModel.RefUniqueId = '@Model.RefUniqueId';
+
+        $.ajax({
+            type: "POST",
+            url: _url,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(searchModel),
+            dataType: "html",
+            success: function (result, status, xhr) {
+                $("#gridPartial").html(result)
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+
+    }
+
+</script>
+

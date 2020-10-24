@@ -1,0 +1,107 @@
+﻿@using YTG.MVC.Lookups.Models
+
+@model ISearchModel
+
+<div>
+    <center>
+        Change Page Size:<br />
+        <ul class="pagination">
+            <li>
+                @if (Model.PageSize == 25)
+                {
+                    @Html.ActionLink("25", Model.actionName, Model.controllerName, new
+                    {
+                        page = 1,
+                        pageSize = 25,
+                        searchTerm = Model.SearchTerm,
+                        sortExpression = Model.SortColumn,
+                        sortOrder = Model.SortDescending,
+                        activeonly = Model.ActiveOnly,
+                        linkName = "25",
+                        refid = Model.RefId
+                    }, new { id = "25", @class = "strong" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("25", Model.actionName, Model.controllerName, new
+               {
+                   page = 1,
+                   pageSize = 25,
+                   searchTerm = Model.SearchTerm,
+                   sortExpression = Model.SortColumn,
+                   sortOrder = Model.SortDescending,
+                   activeonly = Model.ActiveOnly,
+                   linkName = "25",
+                   refid = Model.RefId
+               }, new { id = "25" })
+                }
+            </li>
+            <li>
+                @if (Model.PageSize == 50)
+                {
+                    @Html.ActionLink("50", Model.actionName, Model.controllerName, new
+               {
+                   page = 1,
+                   pageSize = 50,
+                   searchTerm = Model.SearchTerm,
+                   sortExpression = Model.SortColumn,
+                   sortOrder = Model.SortDescending,
+                   activeonly = Model.ActiveOnly,
+                   linkName = "50",
+                   refid = Model.RefId
+               }, new { id = "50", @class = "strong" })
+                }
+                else
+                {
+                    @Html.ActionLink("50", Model.actionName, Model.controllerName, new
+               {
+                   page = 1,
+                   pageSize = 50,
+                   searchTerm = Model.SearchTerm,
+                   sortExpression = Model.SortColumn,
+                   sortOrder = Model.SortDescending,
+                   activeonly = Model.ActiveOnly,
+                   linkName = "50",
+                   refid = Model.RefId
+               }, new { id = "50" })
+                }
+            </li>
+            <li>
+                @if (Model.PageSize == 100)
+                {
+                    @Html.ActionLink("100", Model.actionName, Model.controllerName, new
+               {
+                   page = 1,
+                   pageSize = 100,
+                   searchTerm = Model.SearchTerm,
+                   sortExpression = Model.SortColumn,
+                   sortOrder = Model.SortDescending,
+                   activeonly = Model.ActiveOnly,
+                   linkName = "100",
+                   refid = Model.RefId
+               }, new { id = "100", @class = "strong" })
+                }
+                else
+                {
+                    @Html.ActionLink("100", Model.actionName, Model.controllerName, new
+               {
+                   page = 1,
+                   pageSize = 100,
+                   searchTerm = Model.SearchTerm,
+                   sortExpression = Model.SortColumn,
+                   sortOrder = Model.SortDescending,
+                   activeonly = Model.ActiveOnly,
+                   linkName = "100",
+                   refid = Model.RefId
+               }, new { id = "100" })
+                }
+            </li>
+        </ul><br />
+        Records on this Page: @Model.RecordCount<br />
+        Total records found: @Model.TotalItems<br />
+    </center>
+
+</div>
+
+

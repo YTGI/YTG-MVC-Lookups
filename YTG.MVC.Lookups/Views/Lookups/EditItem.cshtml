@@ -1,0 +1,142 @@
+﻿@using YTG.Models
+
+@model LuItemModel
+@{
+    ViewBag.Title = "Edit Lookup Item";
+}
+
+<script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.full.min.js"></script>
+
+<link rel="stylesheet" href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" />
+
+<body>
+    <section id="main-content" class="animated fadeInUp">
+        <form asp-action="EditItem" asp-controller="Lookups">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CategoryID" />
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="Id" class="control-label" title="Id: @Model.Id"></label>
+                        <input asp-for="Id" class="form-control" readonly />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="EnumValue" class="control-label"></label>
+                        <input asp-for="EnumValue" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="EnumValue" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="LUCode" class="control-label"></label>
+                <input asp-for="LUCode" class="form-control" />
+                <span asp-validation-for="LUCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LUItemDescription" class="control-label"></label>
+                <textarea asp-for="LUItemDescription" class="form-control"></textarea>
+                <span asp-validation-for="LUItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="LUValue" class="control-label"></label>
+                        <input asp-for="LUValue" class="form-control" />
+                        <span asp-validation-for="LUValue" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="LUValue2" class="control-label"></label>
+                        <input asp-for="LUValue2" class="form-control" />
+                        <span asp-validation-for="LUValue2" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="LUBoolean" class="control-label"></label>
+                        <input asp-for="LUBoolean" class="custom-checkbox" />
+                        <span asp-validation-for="LUBoolean" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="LUQuantity" class="control-label"></label>
+                        <input asp-for="LUQuantity" class="form-control" />
+                        <span asp-validation-for="LUQuantity" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="LUDate1Display" class="control-label"></label>
+                        <input asp-for="LUDate1Display" type="text" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="LUDate1Display" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="LUDate2Display" class="control-label"></label>
+                        <input asp-for="LUDate2Display" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="LUDate2Display" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="DateAdded" class="control-label"></label>
+                        <input asp-for="DateAdded" class="form-control" readonly />
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="DateMod" class="control-label"></label>
+                        <input asp-for="DateMod" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="float-right">
+                        <input type="submit" name="submitButton" value="Reset Screen" class="btn btn-secondary" id="resetdata" />
+                        @if (Model.Id > -1)
+                        {
+                            <input type="submit" name="submitButton" value="Save As New" class="btn btn-secondary" id="saveasnew" />
+                        }
+                        <input type="submit" value="Save Item" class="btn btn-primary" />
+                    </div>
+                    <div class="col-9">
+                        <label asp-for="IsActive" class="control-label" />
+                        <input type="checkbox" asp-for="IsActive" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+                <div>
+                    <br />
+                    <a asp-action="Edit" asp-controller="Lookups" asp-route-id="@Model.CategoryID">Back to Category</a>
+                </div>
+
+    </section>
+</body>
+
+<script>
+
+    $(document).ready($(function () {
+
+        $('#LUDate1Display').datetimepicker({
+            timepicker: true,
+            format: 'm/d/Y H:i'
+        });
+
+        $('#LUDate2Display').datetimepicker({
+            timepicker: true,
+            format: 'm/d/Y H:i'
+        });
+
+    }));
+
+
+</script>
+

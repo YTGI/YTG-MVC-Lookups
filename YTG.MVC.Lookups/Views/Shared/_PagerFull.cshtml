@@ -1,0 +1,83 @@
+﻿@using YTG.MVC.Lookups.Models
+
+@model ISearchModel
+<!-- Pager -->
+<ul class="pagination">
+    @if (Model.CurrentPage > 1)
+    {
+        <li>
+            @Html.ActionLink("First", Model.actionName, Model.controllerName, new
+       {
+           page = 1,
+           pageSize = Model.PageSize,
+           searchTerm = Model.SearchTerm,
+           sortExpression = Model.SortColumn,
+           sortOrder = Model.SortDescending,
+           activeonly = Model.ActiveOnly,
+           linkName = "First",
+           refid = Model.RefId
+       }, new { id = "FirstPage" })
+        </li>
+        <li>
+            @Html.ActionLink("Previous", Model.actionName, Model.controllerName, new
+       {
+           page = Model.CurrentPage - 1,
+           pageSize = Model.PageSize,
+           searchTerm = Model.SearchTerm,
+           sortExpression = Model.SortColumn,
+           sortOrder = Model.SortDescending,
+           activeonly = Model.ActiveOnly,
+           linkName = "Previous",
+           refid = Model.RefId
+       }, new { id = "PreviousPage" })
+        </li>
+    }
+
+    @for (var page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <li class="@(page == Model.CurrentPage ? "active" : "")">
+            @Html.ActionLink(page.ToString(), Model.actionName, Model.controllerName, new
+       {
+           page = page,
+           pageSize = Model.PageSize,
+           searchTerm = Model.SearchTerm,
+           sortExpression = Model.SortColumn,
+           sortOrder = Model.SortDescending,
+           activeonly = Model.ActiveOnly,
+           linkName = page,
+           refid = Model.RefId
+       }, new { id = "PageNumber" })
+        </li>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <li>
+            @Html.ActionLink("Next", Model.actionName, Model.controllerName, new
+       {
+           page = Model.CurrentPage + 1,
+           pageSize = Model.PageSize,
+           searchTerm = Model.SearchTerm,
+           sortExpression = Model.SortColumn,
+           sortOrder = Model.SortDescending,
+           activeonly = Model.ActiveOnly,
+           linkName = "Next",
+           refid = Model.RefId
+       }, new { id = "NextPage" })
+        </li>
+        <li>
+            @Html.ActionLink("Last", Model.actionName, Model.controllerName, new
+       {
+           page = Model.TotalPages,
+           pageSize = Model.PageSize,
+           searchTerm = Model.SearchTerm,
+           sortExpression = Model.SortColumn,
+           sortOrder = Model.SortDescending,
+           activeonly = Model.ActiveOnly,
+           linkName = "Last",
+           refid = Model.RefId
+       }, new { id = "LastPage" })
+        </li>
+    }
+</ul>
+<!-- /Pager -->

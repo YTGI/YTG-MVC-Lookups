@@ -1,0 +1,51 @@
+﻿@using YTG.MVC.Lookups.Models
+@using YTG.Models
+@model SearchModel<LuCategory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lookups Category Index</h1>
+
+<section id="main-content" class="animated fadeInUp">
+    <div class="row">
+        <div class="w-100">
+            @using (Html.BeginForm("Index", "Lookups", FormMethod.Get, new { id = "frmCategorySearch" }))
+            {
+                @Html.HiddenFor(m => m.SortColumn, new { id = "SortColumn" })
+                @Html.HiddenFor(m => m.SortDescending, new { id = "SortDescending" })
+                @Html.HiddenFor(m => m.PageSize, new { id = "PageSize" })
+                @Html.HiddenFor(m => m.CurrentPage, new { id = "CurrentPage" })
+
+                <table class="table-responsive" cellspacing="0" width="100%" style="border-color: red !important;">
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(m => m.SearchTerm, new
+                               {
+                                   id = "searchTerm",
+                                   placeholder = "Category Name",
+                                   CurrentPage = Model.CurrentPage,
+                                   PageSize = Model.PageSize,
+                                   SortExpression = Model.SortColumn,
+                                   SortOrder = Model.SortDescending
+                               })
+                            <input type="submit" value="Search" class="btn btn-sm btn-primary" name="submitButton" />
+                            <input type="submit" value="Clear" class="btn btn-sm btn-primary" name="submitButton" />
+                            <a asp-action="Edit" asp-controller="Lookups" asp-route-id="-1" class="btn btn-sm btn-primary">Add New Category</a>
+                            <div>
+                                @Html.CheckBoxFor(m => m.ActiveOnly, new { id = "ActiveOnly", name = "ActiveOnly" })
+                                @Html.LabelFor(m => m.ActiveOnly)
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="gridPartial" style=" border-color: blue !important;">
+                    @{ await Html.RenderPartialAsync("_CatsDisplay", Model); }
+                </div>
+
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+﻿// --------------------------------------------------------------------------------
+/*  Copyright © 2020, Yasgar Technology Group, Inc.
+
+    Purpose: DataContext models
+
+    Description: This class is to mimic the LuCategories object that would be created
+                    as a class from a Scaffold-DbContext
+
+    Any place where there is non-boilerplate code that is of interest, I have added
+    comments.
+
+*/
+// --------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+
+namespace YTG.Lookups.Repository.Models
+{
+    public partial class LuCategories
+    {
+        public LuCategories()
+        {
+            LuItems = new HashSet<LuItems>();
+        }
+
+        public long Id { get; set; }
+        public string ShortName { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string WhoMod { get; set; }
+        public string WhoAdd { get; set; }
+        public DateTime DateAdded { get; set; }
+        public DateTime DateMod { get; set; }
+        public bool? IsActive { get; set; }
+
+        public virtual ICollection<LuItems> LuItems { get; set; }
+    }
+}

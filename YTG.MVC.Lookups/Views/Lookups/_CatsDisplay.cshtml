@@ -1,0 +1,99 @@
+﻿@using YTG.MVC.Lookups.Models
+@using YTG.Models
+@model SearchModel<LuCategory>
+
+<script type="text/javascript">
+
+    function GetCategories(sortColumn) {
+
+        // Set the global values for sorting post back
+        var searchModel = {};
+        searchModel.SortColumn = sortColumn;
+        searchModel.PrevSortColumn = '@Model.SortColumn';
+        searchModel.CurrentPage = @Model.CurrentPage;
+        searchModel.PageSize = @Model.PageSize;
+        searchModel.SearchTerm = '@Model.SearchTerm';
+        searchModel.SortDescending = '@Model.SortDescending';
+        searchModel.ActiveOnly = '@Model.ActiveOnly';
+
+        $.ajax({
+            type: "POST",
+            url: "/Lookups/CatDisplay",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(searchModel),
+            dataType: "html",
+            async: true,
+            success: function (result, status, xhr) {
+                $("#gridPartial").html(result)
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+
+    }
+
+</script>
+
+<div id="CatDisplay">
+    <section id="main-content" class="animated fadeInUp">
+
+        <div class="text-center">
+            <!-- Pager -->
+            @if (Model.EndPage > 1)
+            {
+                await Html.RenderPartialAsync("_PagerPartial", Model);
+            }
+        </div>
+
+        <div class="panel-default">
+            <table width="100%" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th onclick="GetCategories('Name')" title="Click to Sort">Name</th>
+                        <th onclick="GetCategories('ShortName')" title="Click to Sort">Short Name</th>
+                        <th onclick="GetCategories('Description')" title="Click to Sort">Description</th>
+                        <th class="text-center" title="Quantity of Items">Item Count</th>
+                        <th class="text-center">@Html.DisplayName("Active")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SortedResults)
+                    {
+                    <tr>
+                        <td class="text-center">
+                            @Html.ActionLink(" ", "Edit", "Lookups", new { id = item.Id.ToString() }, new { @class = "fas fa-edit", @title = "Id: " + item.Id })
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShortName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td class="text-center">@item.Items.Count().ToString()</td>
+                        <td class="text-center">@Html.DisplayFor(modelItem => item.IsActive)</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (Model.RecordCount == 0)
+            {
+                <div class="col-md-12">
+                    <p class="text-center text-warning">
+                        There are no Categories defined
+                    </p>
+                    <br /><br />
+                </div>
+            }
+
+            <div class="text-center">
+                <!-- Pager -->
+                @if (Model.EndPage > 1)
+                {
+                    await Html.RenderPartialAsync("_PagerPartial", Model);
+                    await Html.RenderPartialAsync("_PageCountPartial", Model);
+                }
+            </div>
+
+        </div>
+    </section>
+</div>

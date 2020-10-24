@@ -1,0 +1,55 @@
+﻿@using YTG.MVC.Lookups.Models
+
+@model ISearchModel
+
+<div>
+    <center>
+        Change Page Size:<br />
+        <ul class="pagination justify-content-center">
+            <li class="@(Model.PageSize == 25 ? "active strong" : "") page-item"><a class="page-link" href="#" onclick="GetPageSize(25)">25</a></li>
+            <li class="@(Model.PageSize == 50 ? "active strong" : "") page-item"><a class="page-link" href="#" onclick="GetPageSize(50)">50</a></li>
+            <li class="@(Model.PageSize == 100 ? "active strong" : "") page-item"><a class="page-link" href="#" onclick="GetPageSize(100)">100</a></li>
+        </ul><br />
+        Records on this Page: @Model.RecordCount<br />
+        Total records found: @Model.TotalItems<br />
+    </center>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function GetPageSize(PageSize) {
+
+        var _url = "/@Model.controllerName/@Model.actionName";
+
+        // Set the global values for sorting post back
+        var searchModel = {};
+        searchModel.SortColumn = '@Model.SortColumn';
+        searchModel.PrevSortColumn = '' // Leave blank so sorting doesn't kick;
+        searchModel.CurrentPage = @Model.CurrentPage;
+        searchModel.PageSize = PageSize;
+        searchModel.SearchTerm = '@Model.SearchTerm';
+        searchModel.SearchFilter = '@Model.SearchFilter';
+        searchModel.SortDescending = '@Model.SortDescending';
+        searchModel.ActiveOnly = '@Model.ActiveOnly';
+        searchModel.RefId = @Model.RefId;
+        searchModel.RefUniqueId = '@Model.RefUniqueId';
+
+        $.ajax({
+            type: "POST",
+            url: _url,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(searchModel),
+            dataType: "html",
+            success: function (result, status, xhr) {
+                $("#gridPartial").html(result)
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+
+    }
+
+</script>
