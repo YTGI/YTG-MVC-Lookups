@@ -23,4 +23,4 @@ in the blog post <a href="https://jackyasgar.net/series/ultimate-guide-to-mvc-pa
 
 ### Related Articles
 <p><a href="https://www.linkedin.com/pulse/mvc-paging-death-web-site-jack-yasgar/" target="_blank">MVC Paging: Death of a web site</a></p>
-<p>Copyright © 2020, Yasgar Technology Group, Inc.</p>
+<p>Copyright © 2020, <a href="http://ytgi.com/">Yasgar Technology Group, Inc.</a></p>
