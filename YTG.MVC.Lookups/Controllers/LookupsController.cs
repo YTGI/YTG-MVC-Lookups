@@ -149,9 +149,9 @@ namespace YTG.MVC.Lookups.Controllers
                     // Get the base LuCategory
                     LuCategory _return = await LookupsSvc.GetLuCategoryByIdAsync(id);
 
-                    // Get a paged result of some items because we want a paged list of child items as well
                     model = Helpers.MappingUtils.LuCatToLuCatModel(_return, false);
 
+                    // Get a paged result of some items because we want a paged list of child items as well
                     model.Items = await GetItemsPagedAsync(id, 1, pageSize);
                 }
 
