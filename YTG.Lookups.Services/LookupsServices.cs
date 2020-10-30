@@ -194,7 +194,6 @@ namespace YTG.Lookups.Services
             List<LuCategory> _items = new List<LuCategory>();
             try
             {
-                int _skip = (p_PageSize * (p_Page - 1));
                 string _sortOrder = p_SortDescending ? "desc" : "asc";
 
                 PagedResult<LuCategories> _result = await this.LookupsRep.GetLuCategoriesByEFAsync(p_Page, p_PageSize, p_SearchTerm, p_SearchFilter, p_SortColumn, _sortOrder, p_ActiveOnly);
